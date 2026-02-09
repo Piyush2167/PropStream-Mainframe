@@ -70,6 +70,7 @@ import axios from "axios";
 import { db } from "../firebase/config";
 import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import Navbar from "../components/Navbar";
+import API_URL from "../config/api";
 
 const AdminDashboard = () => {
   const [liveAssets, setLiveAssets] = useState([]);
@@ -88,8 +89,9 @@ const AdminDashboard = () => {
 
     // Fetch analytics from MongoDB
     axios
-      .get("http://localhost:5000/api/stats")
-      .then((res) => setStats(res.data));
+      .get(`${API_URL}/stats`)
+      .then((res) => setStats(res.data))
+      .catch((err) => console.error("Error fetching stats:", err));
 
     return () => unsub();
   }, []);

@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import PropertyCard from '../components/PropertyCard';
+import API_URL from '../config/api';
 
 const InvestorDashboard = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     // Fetch from MongoDB
-    axios.get('http://localhost:5000/api/properties').then(res => setProperties(res.data));
+    axios.get(`${API_URL}/properties`)
+      .then(res => setProperties(res.data))
+      .catch(err => console.error("Error fetching properties:", err));
   }, []);
 
   return (
